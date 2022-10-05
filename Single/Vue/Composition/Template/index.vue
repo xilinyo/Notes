@@ -3,13 +3,13 @@
     <keep-alive>
       <Suspense>
         <component
-          :is="'Example'"
           v-bind="object"
           v-model="boolean"
+          :is="'Example'"
           :true-value="truevalue"
           :false-value="falsevalue"
-          @ok="handleEvent"
           :ref="initRef"
+          @ok="handleEvent"
         >
           <!-- ref="Example" -->
           <template #defalut="{ ids }">
