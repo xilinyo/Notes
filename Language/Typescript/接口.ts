@@ -1,59 +1,70 @@
 /**
- * @不常用
+ * @接口
+ * 是对象的状态(属性)和行为(方法)的抽象(描述)
+ * 可扩展范型
  */
-interface Rarely {
-  // 联合类型
-  index: number | number[];
-  // 元组
-  tuple: [string, Array<number>];
+interface Rarely<T> {
+  // 可选 联合类型
+  index?: T | number[];
+  // 只读 元组
+  readonly tuple: [string, Array<number>];
 }
 
 /**
- * @数组
+ * @索引签名
+ * [index: number]: Array;
+ * [index: string | symbol]: Object;
  */
-interface Ay {
-  // 索引签名 number 代表数组
-  [index: number]: Rarely;
-  // 索引签名 string 、symbol 代表对象
-  // [index: string]: Rarely;
+interface Ary {
+  [index: number]: number;
 }
 
-const users: Ay = [
-  {
-    tuple: ["ids", [1, 2, 3]],
-    index: [0],
-  },
-];
+const _ary: Ary = [0];
 
-/**
- * @函数
- */
-interface Func {
-  (key: unknown, index: string | number): void;
+interface Jct {
+  [key: string]: any;
 }
 
-const fn: Func = (key, index) => {
-  // 类型断言
-  // 类型断言 key as Type or <Type>key
-  //   (key as Array<string>).join("");
-  //   (<string>key).split("");
-
-  // 处理联合类型
-  if (typeof index === "string") {
-    index.split("");
-  } else {
-    index.toFixed(2);
-  }
+const _jct: Jct = {
+  _rly: [0],
 };
 
 /**
- * @不存在的值
+ * @扩展
+ * 使用 extends 扩展
  */
-interface Never {
-  (): never;
+
+interface Ner extends Jct {
+  _number: number;
 }
 
-// const nev: Never = () => {
-//   //   while (true) {}
-//   throw new Error("Something failed");
-// };
+/**
+ * @合并
+ * 可以重复声明一个接口
+ * 接口会进行合并
+ */
+interface Ner {
+  _boolean: boolean;
+}
+const _ner: Ner = {
+  _number: 23,
+  _boolean: false,
+};
+
+
+/**
+ * @keyof
+ */
+ interface Person {
+  name: string;
+  age: number;
+  gender: "male" | "female";
+}
+
+type PersonKey = keyof Person; //type PersonKey = 'name'|'age'|'gender';
+
+type Keys = "a" | "b" | "c"
+
+type Obj =  {
+  [p in Keys]: any
+} // -> { a: any, b: any, c: any }

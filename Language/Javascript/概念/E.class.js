@@ -15,6 +15,7 @@ class Animal {
    * 此时的 this 指向调用者
    */
   hi() {
+    // Animal.type
     console.log(`I'm ${this.species}`);
   }
 

@@ -1,50 +1,65 @@
 /**
- * @类
+ * @抽象类
+ * @abstract
+ * 抽象类不能实例化
+ * @范型T
+ * @范型的默认类型
  */
 
-interface ClockInterface {
-  currentTime: Date;
-}
+abstract class Car<T = string> {
+  /**
+   * @private
+   * 私有的, 只能在类的内部使用, 不能被继承, 不能被子类覆盖
+   */
+  constructor(private _origin: string = "中国") {}
+  /**
+   * @protected
+   * 受保护的, 类的内部使用, 不能被实例化, 可以被继承, 可以被子类覆盖
+   */
+  protected fuel = "电动";
 
-class Clock implements ClockInterface {
-  currentTime: Date;
-  constructor(h: number, m: number) {}
+  /**
+   * @static
+   * 静态属性, 类的属性
+   */
+  static id = "0";
+
+  /**
+   * @public
+   * 公有的, 原型, 可被覆盖
+   */
+  public get origin() {
+    return this._origin;
+  }
+
+  /**
+   * @readonly
+   * 只读
+   * @public
+   * 默认声明
+   */
+  readonly serial = "Car";
+
+  /**
+   * @abstract
+   * 抽象方法,抽象属性
+   * 必须在派生类中实现
+   */
+  abstract id: T;
+  abstract getId(): void;
 }
 
 /**
- * @继承
+ * @派生类
+ * 必须实现抽象类中的抽象方法和属性
+ * @extends
+ * 继承
  */
 
-interface Shape {
-    color: string;
+class Wuling extends Car {
+  constructor(origin?: string) {
+    super(origin);
+  }
+  id = "1";
+  getId = (): void => {};
 }
-
-interface Square extends Shape {
-    sideLength: number;
-}
-
-let square = <Square>{};
-square.color = "blue";
-square.sideLength = 10;
-
-/**
- * @混合类型
- */
-
- interface Counter {
-    (start: number): string;
-    interval: number;
-    reset(): void;
-}
-
-function getCounter(): Counter {
-    let counter = <Counter>function (start: number) { };
-    counter.interval = 123;
-    counter.reset = function () { };
-    return counter;
-}
-
-let c = getCounter();
-c(10);
-c.reset();
-c.interval = 5.0;
