@@ -1,0 +1,23 @@
+/*
+ Block Formatting Context 
+ 块级格式化上下文
+ 有独立的渲染规则的容器
+
+ 触发 BFC
+ 1: 根元素，即HTML元素
+ 2: 浮动元素：float值为left、right
+ 3: overflow值不为 visible，为 auto、scroll、hidden
+ 4: display的值为inline-block、inltable-cell、table-caption、table、inline-table、flex、inline-flex、grid、inline-grid
+ 5: position的值为absolute或fixed
+
+ 规则
+ 1: 内部的盒子会在垂直方向上一个接一个的放置
+ 2: 对于同一个BFC的俩个相邻的盒子的margin会发生重叠，与方向无关
+ 3: 每个元素的外边距 margin 会触碰到容器的边框，即使浮动元素也是如此
+ 4: 同一容器内的 BFC的区域 不会与 float的元素区域 重叠
+ 5: 计算BFC的高度时，浮动子元素也参与计算
+ 6: BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然
+
+ 目的
+ 形成一个相对于外界完全独立的空间，让内部的子元素不会影响到外部的元素
+*/
